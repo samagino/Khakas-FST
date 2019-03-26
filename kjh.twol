@@ -4,42 +4,161 @@ Alphabet
   а б в г ғ д е ё ж з и й і к л м н ң о ӧ п р с т у ӱ ф х ц ч ӌ ш щ ъ ы ь э ю я 
   %{а%}:а %{а%}:е
   %{ы%}:і %{ы%}:ы %{ы%}:0
+  %{А%}:а
+  %{Е%}:е
+  %{И%}:и %{И%}:е
+  %{І%}:і %{І%}:е
+  %{О%}:о %{О%}:а
+  %{Ӧ%}:ӧ %{Ӧ%}:е
+  %{У%}:у %{У%}:а
+  %{Ӱ%}:ӱ %{Ӱ%}:е
+  %{Ы%}:ы %{Ы%}:а
   %{л%}:л %{л%}:н %{л%}:т
+  %{d%}:д %{d%}:н %{d%}:т
+  %{с%}:з %{с%}:с
   %{з%}:з %{з%}:0
-  %>:0 %>:> ! > if you wanna see morpheme boundaries
+  %{т%}:н %{т%}:т
+  %{д%}:д %{д%}:т 
+  %{н%}:н %{н%}:0 
+  %{х%}:ғ %{х%}:г %{х%}:х %{х%}:к %{х%}:0
+  %{px3%}:0
+  %{acc%}:0
+  %{loc%}:0
+  %{all%}:0
+  %{abl%}:0
+  %{dat%}:0
+  %>:0 %>:> ! change rule to > if you wanna see morpheme boundaries
 ;
 
+!==================
 Sets
+!==================
 
-Cns = б в г ғ д ж з й к л м н ң п р с т ф х ц ч ӌ ш щ ъ ь %{л%} ;
+Cns = б в г ғ д ж з й к л м н ң п р с т ф х ц ч ӌ ш щ ъ ь ;
 VoicedCns = б в г ғ д ж з й л м н ң р ӌ ;
 UnvoicedCns = к п с т ф х ч ш щ ;
 Nasals = м н ң ;
+BCns = б л р ё н м ;
+GCns = г ғ ң ;
+ArchiCns = %{л%} %{з%} %{с%} %{т%} %{д%} %{н%} %{х%} ;
 
-Vowels = а е ё и і о ӧ у ӱ %{а%} ;
-FrontVowels = е и і ӧ ӱ ;
-BackVowels = а ы у о ;
+Vowels = а е ё и і о ӧ у ӱ ы ;
+FrontVowels = е и і ӧ ӱ %{Е%} %{И%} %{І%} %{Ӧ%} %{Ӱ%} ;
+BackVowels = а ы у о %{А%} %{О%} %{У%} %{Ы%} ;
+ArchiVowls = %{а%} %{ы%} %{Е%} %{И%} %{І%} %{Ӧ%} %{Ӱ%} %{А%} %{О%} %{У%} %{Ы%} ;
 
+Markers = %{px3%} %{acc%} %{loc%} %{all%} %{dat%} ;
+
+!==================
+Definitions
+!==================
+
+StemBackVowel = BackVowels: [ Markers: | ArchiVowls: | ArchiCns: | Cns: | %>: ]+ ;
+
+!==================
 Rules
+!==================
 
-"vowel harmony for archiphoneme {а}"
-%{а%}:а <=> BackVowels: [ Cns: | %>: ]+ _ ;
-
-"{л} -> л when following a vowel or a voiced consonant, except nasals"
+"Assimilation {л} -> л when following a vowel or a voiced consonant, except nasals"
 %{л%}:л <=> [ Vowels: | VoicedCns: ] %>: _ ;
         except
             Nasals: %>: _ ;
 
-"{л} -> н when following nasals"
+"Assimilation {л} -> н when following nasals"
 %{л%}:н <=> Nasals: %>: _ ;
 
+"Assimilation {d} -> д when following a vowel or a voiced consonant, except nasals"
+%{d%}:д <=> [ Vowels: | VoicedCns: ] %>: _ ;
+        except
+            Nasals: %>: _ ;
+            %{px3%}: %>: _ %{а%}: ң %{abl%}: ;
+
+"Assimilation {d} -> н when following nasals"
+%{d%}:н <=> Nasals: %>: _ ;
+
+"{d} -> н when in ablative and following 3rd person possessive"
+%{d%}:н <=> %{px3%}: %>: _ %{а%}: ң %{abl%}: ;
+
+"{з} -> 0 when following consonants"
+%{з%}:0 <=> Cns: %>: _ ;
+
+"Assimilation {т} -> т when following an unvoiced consonant"
+%{т%}:т <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+
+"Assimilation {д} -> т when following an unvoiced consonant"
+%{д%}:т <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+
+"Assimilation {с} -> с when following an unvoiced consonant"
+%{с%}:с <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+
+"Vowel harmony for archiphoneme {а}"
+%{а%}:а <=> StemBackVowel _ ;
+
 "Vowel harmony for archiphoneme {ы}"
-%{ы%}:ы <=> BackVowels: [ Cns: | %>: ]+ _ ;
+%{ы%}:ы <=> StemBackVowel _ ;
         except
             Vowels: %>: _ ;
+            %{px3%}: %>: %{т%}: _ %{acc%}: ;
 
 "{ы} -> 0 when following vowels"
 %{ы%}:0 <=> Vowels: %>: _ ;
 
+! _TODO_ this is kinda jank, is there a better way to do this?
+"{ы} -> 0  when in accusitive following 3rd person possessive"
+%{ы%}:0 <=> %{px3%}: %>: %{т%}: _ %{acc%}: ;
+
+! _TODO_ same with this one
+"{н} -> н  when in locative following 3rd person possessive"
+%{н%}:н <=> %{px3%}: %>: _ %{д%}: %{а%}: %{loc%}: ;
+
+! _TODO_ and this one
+"{н} -> н  when in allative following 3rd person possessive"
+%{н%}:н <=> %{px3%}: %>: _ %{с%}: %{а%}: р %{all%}: ;
+
+"{А} -> а"
+%{A%}:а <=> _ ;
+
+"{Е} -> е"
+%{Е%}:е <=> _ ;
+
+"{О} -> а when in dative case"
+%{О%}:а <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{У} -> а when in dative case"
+%{У%}:а <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{Ы} -> a when in dative case"
+%{Ы%}:а <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{И} -> е when in dative case"
+%{И%}:е <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{І} -> е when in dative case"
+%{І%}:е <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{Ӧ} -> е when in dative case"
+%{Ӧ%}:е <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
+"{Ӱ} -> е when in dative case"
+%{Ӱ%}:е <=> _ %>: %{х%}: %{а%}: %{dat%}: ;
+
 "Remove morpheme boundaries"
 %>:0 <=> _ ;
+
+"remove 3rd person possessive marker"
+%{px3%}:0 <=> _ ;
+
+"remove accusitive marker"
+%{acc%}:0 <=> _ ;
+
+"remove locative marker"
+%{loc%}:0 <=> _ ;
+
+"remove lative marker"
+%{all%}:0 <=> _ ;
+
+"remove ablative marker"
+%{abl%}:0 <=> _ ;
+
+"remove dative marker"
+%{dat%}:0 <=> _ ;

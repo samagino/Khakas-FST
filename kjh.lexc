@@ -3,61 +3,100 @@ Multichar_Symbols
 %>              ! morpheme boundary
 
 %<n%>           ! Имя Существительное | Noun
-%<pl%>          ! Plural
-%<1s_pos%>      ! 1st person singular possessive
-%<2s_pos%>      ! 2nd person singular possessive
-%<3s_pos%>      ! 3rd person singular possessive
-%<1p_pos%>      ! 1st person plural possessive
-%<2p_pos%>      ! 2nd person plural possessive
-%<3p_pos%>      ! 3rd person plural possessive
+%<num%>         ! Имя Числительное    | Numeral
+%<adv%>         ! Наречие             | Adverb
+
+%<sg%>          ! единственного число  | Singular
+%<pl%>          ! множественного число | Plural
+
+%<px1sg%>      ! 1st person singular possessive
+%<px2sg%>      ! 2nd person singular possessive
+%<px3sg%>      ! 3rd person singular possessive
+%<px1pl%>      ! 1st person plural possessive
+%<px2pl%>      ! 2nd person plural possessive
+%<px3pl%>      ! 3rd person plural possessive
 
 
 !--------- Cases -----------------!
-%<abs%>         ! absolute case
-!%<acc%>         ! accusitive case
-!%<dat%>         ! dative case
-!%<loc%>         ! locative case
-!%<ins%>         ! instrumental case
-!%<abl%>         ! ablative case
-!%<gen%>         ! genitive case
-!%<lat%>         ! lative case (направительный падеж)
+%<nom%>         ! основной падеж       | nominative case
+%<acc%>         ! винительный падеж    | accusitive case
+%<dat%>         ! дательный падеж      | dative case
+%<loc%>         ! местный падеж        | locative case
+%<ins%>         ! орундийный падеж     | instrumental case
+%<abl%>         ! исходный падеж       | ablative case
+%<gen%>         ! родительный падеж    | genitive case
+%<all%>         ! направительный падеж | allative case
 !----------------------------------!
 
 
 !------------ Archiphonemes ---------------!
-%{а%}           ! vowel harmony а или е
-%{ы%}           ! vowel harmony і или ы или 0
-%{з%}           ! something з или 0
-%{л%}           ! something л или н или т
+%{а%}           ! а е
+%{ы%}           ! і ы 0
+%{А%}           ! а    ; these are redundant, but needed 
+%{Е%}           ! е    ; for %{х%} to work
+%{И%}           ! и е
+%{І%}           ! і е
+%{О%}           ! о а
+%{Ӧ%}           ! ӧ е
+%{У%}           ! у а
+%{Ӱ%}           ! ӱ е
+%{Ы%}           ! ы а
+%{з%}           ! з 0
+%{с%}           ! з с
+%{л%}           ! л н т
+%{т%}           ! н т
+%{д%}           ! д т
+%{d%}           ! д н т
+%{н%}           ! н 0
+%{х%}           ! ғ г х к 0
 !------------------------------------------!
+
+!-------------Markers--------------------!
+%{px3%}         ! 3rd person possessive
+
+%{acc%}         ! accusitive
+%{loc%}         ! locative
+%{all%}         ! allative
+%{abl%}         ! ablative
+%{dat%}         ! dative
+!----------------------------------------!
+
 
 LEXICON Root
 
 Nouns ;
+Numerals ;
 
 LEXICON CASE
 
-%<abs%>: # ; ! absolute
+%<nom%>:                          # ; ! nominative
+%<acc%>:%>%{т%}%{ы%}%{acc%}       # ; ! accusitive
+%<gen%>:%>%{т%}%{ы%}ң             # ; ! genetive
+%<loc%>:%>%{н%}%{д%}%{а%}%{loc%}  # ; ! locative
+%<all%>:%>%{н%}%{с%}%{а%}р%{all%} # ; ! allative
+%<abl%>:%>%{d%}%{а%}ң%{abl%}      # ; ! ablative
+%<ins%>:%>н%{а%}ң                 # ; ! instrumental
+!not sure how to implement this, {x} is weird
+!%<dat%>:%>%{х%}%{а%}%{dat%}       # ; ! dative
 
 LEXICON POSSESSIVE
 
-! TODO this is incomplete !
-! NOTE: online grammar says 3p_pos should be {л}{а}р{і}
+! NOTE: online grammar says px3pl should be {л}{а}р{і}
 !            unless it follows plural suffix, in which case it is {і}
-!       print grammar says it should be {з}{і} (same as 3s_pos)
-!    here I follow the rule from the print grammar
+!       print grammar says it should be {з}{і} (same as px3sg)
+!       here I follow the rule from the print grammar
 
-                           CASE ; ! ¬ possessive
-%<1s_pos%>:%>%{ы%}м        CASE ; ! 1st person singular possessive
-!%<2s_pos%>:%>%{ы%}ң        CASE ; ! 2nd person singular possessive
-!%<3s_pos%>:%>%{з%}%{ы%}    CASE ; ! 3rd person singular possessive
-!%<1p_pos%>:%>%{ы%}б%{ы%}с  CASE ; ! 1st person plural possessive
-!%<2p_pos%>:%>%{ы%}ңер      CASE ; ! 2nd person plural possessive
-!%<3p_pos%>:%>%{з%}%{ы%}    CASE ; ! 3rd person plural possessive
+                              CASE ; ! ¬ possessive
+%<px1sg%>:%>%{ы%}м            CASE ; ! 1st person singular possessive
+%<px2sg%>:%>%{ы%}ң            CASE ; ! 2nd person singular possessive
+%<px3sg%>:%>%{з%}%{ы%}%{px3%} CASE ; ! 3rd person singular possessive
+%<px1pl%>:%>%{ы%}б%{ы%}с      CASE ; ! 1st person plural possessive
+%<px2pl%>:%>%{ы%}ң%{а%}р      CASE ; ! 2nd person plural possessive
+%<px3pl%>:%>%{з%}%{ы%}%{px3%} CASE ; ! 3rd person plural possessive
 
 LEXICON PLURAL
 
-                      POSSESSIVE ; ! ¬ plural
+%<sg%>:               POSSESSIVE ; ! ¬ plural
 %<pl%>:%>%{л%}%{а%}р  POSSESSIVE ; ! plural
 
 LEXICON N
@@ -66,11 +105,37 @@ LEXICON N
 
 LEXICON Nouns
 
-пала:пала   N;          ! ребенок  | child
-тӧге:тӧге   N;          ! бревно   | log
-кӧл:кӧл     N;          ! озеро    | lake
-ізік:ізік   N;          ! дверь    | door
-ӧртек:ӧртек N;          ! утка     | duck
-мал:мал     N;          ! животное | animal
-тӧң:тӧң     N;          ! пригорок | hillock
-киме:киме   N;          ! лодка    | boat
+пала:пал%{А%}   N;          ! ребенок  | child
+тӧге:тӧг%{Е%}   N;          ! бревно   | log
+кӧл:кӧл         N;          ! озеро    | lake
+ізік:ізік       N;          ! дверь    | door
+ӧртек:ӧртек     N;          ! утка     | duck
+мал:мал         N;          ! животное | animal
+тӧң:тӧң         N;          ! пригорок | hillock
+киме:ким%{Е%}   N;          ! лодка    | boat
+
+LEXICON Numerals
+! this is unfinished
+! need ordinal numbers, production of big numbers
+
+пір%<num%>:пір          #;        ! один        | one
+ікі%<num%>:ікі          #;        ! два         | two
+ӱс%<num%>:ӱс            #;        ! три         | three
+тӧрт%<num%>:тӧрт        #;        ! четыре      | four
+пис%<num%>:пис          #;        ! пять        | five
+алты%<num%>:алты        #;        ! шесть       | six
+читі%<num%>:читі        #;        ! семь        | seven
+сигіс%<num%>:сигіс      #;        ! восемь      | eight
+тоғыс%<num%>:тоғыс      #;        ! девять      | nine
+
+он%<num%>:он            #;        ! десять      | ten
+чибіргі%<num%>:чибіргі  #;        ! двадцать    | twenty
+отыс%<num%>:отыс        #;        ! тридцать    | thirty
+хырых%<num%>:хырых      #;        ! сорок       | forty
+иліг%<num%>:иліг        #;        ! пятьдесят   | fifty
+алтон%<num%>:алтон      #;        ! шестьдесят  | sixty
+читон%<num%>:читон      #;        ! семьдесят   | seventy
+сигізон%<num%>:сигізон  #;        ! восемьдесят | eighty
+тоғызон%<num%>:тоғызон  #;        ! девяносто   | ninety
+
+чӱс%<num%>:чӱс          #;        ! сто         | (one)hundred
