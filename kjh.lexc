@@ -4,10 +4,16 @@ Multichar_Symbols
 
 %<n%>           ! Имя Существительное | Noun
 %<num%>         ! Имя Числительное    | Numeral
+%<adj%>         ! Имя Приоагательное  | Adjective
 %<adv%>         ! Наречие             | Adverb
+%<prn%>         ! Местоимение         | Pronoun
 
 %<sg%>          ! единственного число  | Singular
 %<pl%>          ! множественного число | Plural
+
+%<p1%>          ! First Person
+%<p2%>          ! Second Person
+%<p3%>          ! Third Person
 
 %<px1sg%>      ! 1st person singular possessive
 %<px2sg%>      ! 2nd person singular possessive
@@ -32,15 +38,6 @@ Multichar_Symbols
 !------------ Archiphonemes ---------------!
 %{а%}           ! а е
 %{ы%}           ! і ы 0
-%{А%}           ! а    ; these are redundant, but needed 
-%{Е%}           ! е    ; for %{х%} to work
-%{И%}           ! и е
-%{І%}           ! і е
-%{О%}           ! о а
-%{Ӧ%}           ! ӧ е
-%{У%}           ! у а
-%{Ӱ%}           ! ӱ е
-%{Ы%}           ! ы а
 %{з%}           ! з 0
 %{с%}           ! з с
 %{л%}           ! л н т
@@ -64,8 +61,11 @@ Multichar_Symbols
 
 LEXICON Root
 
-Nouns ;
-Numerals ;
+Nouns      ;
+Numerals   ;
+!Adjectives ;
+!Adverbs   ;
+Pronouns   ;
 
 LEXICON CASE
 
@@ -76,8 +76,7 @@ LEXICON CASE
 %<all%>:%>%{н%}%{с%}%{а%}р%{all%} # ; ! allative
 %<abl%>:%>%{d%}%{а%}ң%{abl%}      # ; ! ablative
 %<ins%>:%>н%{а%}ң                 # ; ! instrumental
-!not sure how to implement this, {x} is weird
-!%<dat%>:%>%{х%}%{а%}%{dat%}       # ; ! dative
+%<dat%>:%>%{х%}%{а%}%{dat%}       # ; ! dative
 
 LEXICON POSSESSIVE
 
@@ -105,14 +104,14 @@ LEXICON N
 
 LEXICON Nouns
 
-пала:пал%{А%}   N;          ! ребенок  | child
-тӧге:тӧг%{Е%}   N;          ! бревно   | log
+пала:пала       N;          ! ребенок  | child
+тӧге:тӧге       N;          ! бревно   | log
 кӧл:кӧл         N;          ! озеро    | lake
 ізік:ізік       N;          ! дверь    | door
 ӧртек:ӧртек     N;          ! утка     | duck
 мал:мал         N;          ! животное | animal
 тӧң:тӧң         N;          ! пригорок | hillock
-киме:ким%{Е%}   N;          ! лодка    | boat
+киме:киме       N;          ! лодка    | boat
 
 LEXICON Numerals
 ! this is unfinished
@@ -139,3 +138,64 @@ LEXICON Numerals
 тоғызон%<num%>:тоғызон  #;        ! девяносто   | ninety
 
 чӱс%<num%>:чӱс          #;        ! сто         | (one)hundred
+
+!LEXICON Adjectives
+
+
+!LEXICON Adverbs
+
+LEXICON Pronouns
+
+мин%<prn%>%<sg%>%<p1%>%<nom%>:мин       #;      ! я          | I
+минің%<prn%>%<sg%>%<p1%>%<gen%>:минің   #;
+мағаа%<prn%>%<sg%>%<p1%>%<dat%>:мағаа   #;
+мині%<prn%>%<sg%>%<p1%>%<acc%>:мині     #;
+минде%<prn%>%<sg%>%<p1%>%<loc%>:минде   #;
+миннең%<prn%>%<sg%>%<p1%>%<abl%>:миннең #;
+минзер%<prn%>%<sg%>%<p1%>%<all%>:минзер #;
+миннең%<prn%>%<sg%>%<p1%>%<ins%>:миннең #;
+
+син%<prn%>%<sg%>%<p2%>%<nom%>:син       #;      ! ты         | you
+синің%<prn%>%<sg%>%<p2%>%<gen%>:синің   #;
+сағаа%<prn%>%<sg%>%<p2%>%<dat%>:сағаа   #;
+сині%<prn%>%<sg%>%<p2%>%<acc%>:сині     #;
+синде%<prn%>%<sg%>%<p2%>%<loc%>:синде   #;
+синнең%<prn%>%<sg%>%<p2%>%<abl%>:синнең #;
+синзер%<prn%>%<sg%>%<p2%>%<all%>:синзер #;
+синнең%<prn%>%<sg%>%<p2%>%<ins%>:синнең #;
+
+ол%<prn%>%<sg%>%<p3%>%<nom%>:ол           #;      ! он/она/оно | he/she/it
+аның%<prn%>%<sg%>%<p3%>%<gen%>:аның       #;
+ағаа%<prn%>%<sg%>%<p3%>%<dat%>:ағаа       #;
+аны%<prn%>%<sg%>%<p3%>%<acc%>:аны         #;
+анда%<prn%>%<sg%>%<p3%>%<loc%>:анда       #;
+аннаң%<prn%>%<sg%>%<p3%>%<abl%>:аннаң     #;
+аныңзар%<prn%>%<sg%>%<p3%>%<all%>:аныңзар #;
+аннаң%<prn%>%<sg%>%<p3%>%<ins%>:аннаң     #;
+
+піс%<prn%>%<pl%>%<p1%>%<nom%>:піс       #;      ! мы         | we
+пістің%<prn%>%<pl%>%<p1%>%<gen%>:пістің #;
+піске%<prn%>%<pl%>%<p1%>%<dat%>:піске   #;
+пісті%<prn%>%<pl%>%<p1%>%<acc%>:пісті   #;
+пісте%<prn%>%<pl%>%<p1%>%<loc%>:пісте   #;
+пістең%<prn%>%<pl%>%<p1%>%<abl%>:пістең #;
+піссер%<prn%>%<pl%>%<p1%>%<all%>:піссер #;
+піснең%<prn%>%<pl%>%<p1%>%<ins%>:піснең #;
+
+сірер%<prn%>%<pl%>%<p2%>%<nom%>:сірер       #;      ! вы         | y'all
+сірернің%<prn%>%<pl%>%<p2%>%<gen%>:сірернің #;
+сірерге%<prn%>%<pl%>%<p2%>%<dat%>:сірерге   #;
+сірерні%<prn%>%<pl%>%<p2%>%<acc%>:сірерні   #;
+сірерде%<prn%>%<pl%>%<p2%>%<loc%>:сірерде   #;
+сірердең%<prn%>%<pl%>%<p2%>%<abl%>:сірердең #;
+сірерзер%<prn%>%<pl%>%<p2%>%<all%>:сірерзер #;
+сірернең%<prn%>%<pl%>%<p2%>%<ins%>:сірернең #;
+
+олар%<prn%>%<pl%>%<p3%>%<nom%>:олар       #;      ! они        | they
+оларның%<prn%>%<pl%>%<p3%>%<gen%>:оларның #;
+оларға%<prn%>%<pl%>%<p3%>%<dat%>:оларға   #;
+оларны%<prn%>%<pl%>%<p3%>%<acc%>:оларны   #;
+оларда%<prn%>%<sg%>%<p3%>%<loc%>:оларда   #;
+олардаң%<prn%>%<sg%>%<p3%>%<abl%>:олардаң #;
+оларзар%<prn%>%<sg%>%<p3%>%<all%>:оларзар #;
+оларнаң%<prn%>%<sg%>%<p3%>%<ins%>:оларнаң #;
