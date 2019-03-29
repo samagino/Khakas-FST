@@ -104,9 +104,31 @@ Rules
 %{ы%}:0 <=> Vowels: %>: _ ;
 
 "Assimilation, Vowel Harmony {х} -> г/ғ after most voiced consonants"
-%{х%}:Cx <=> [б | л | р | й | н | м] %>: _ Vx;
+%{х%}:Cx <=> [б | л | р | й | н | м] %>: _ :Vx ;
              where Vx in (а е)
-                   Cx in (г ғ)
+                   Cx in (ғ г)
+             matched ;
+
+"Assimilation, Vowel Harmony {х} -> г/ғ after long vowels"
+%{х%}:Cx <=> Vowels: Vowels: %>: _ :Vx;
+             where Vx in (а е)
+                   Cx in (ғ г)
+             matched ;
+
+"Elision of {х} b/w short vowels and after г/ң/ғ"
+%{х%}:0 <=> \:Vowels :Vowels %>: _ ;
+            [г | ң | ғ] %>: _ ;
+
+"Stem vowel assimilation with null {x}"
+Vx:Vy <=> _ %>: %{х%}:0 :Vy ;
+          where Vx in (ы у о и і ӧ ӱ)
+                Vy in (а а а е е е е)
+          matched ;
+
+"Assimilation, Vowel Harmony {х} -> х/к after unvoiced consonants"
+%{х%}:Cx <=> [Cns - [б | л | р | й | н | м | г | ң | ғ] ] %>: _ :Vx ;
+             where Vx in (а е)
+                   Cx in (х к)
              matched ;
 
 ! _TODO_ this is kinda jank, is there a better way to do this?
@@ -148,21 +170,21 @@ Rules
 "remove dative marker"
 %{dat%}:0 <=> _ ;
 
-"TEMPORARY"
-а:а <=> _ ;
-"TEMPORARY"
-е:е <=> _ ;
-"TEMPORARY"
-ы:ы <=> _ ;
-"TEMPORARY"
-у:у <=> _ ;
-"TEMPORARY"
-о:о <=> _ ;
-"TEMPORARY"
-и:и <=> _ ;
-"TEMPORARY"
-і:і <=> _ ;
-"TEMPORARY"
-ӧ:ӧ <=> _ ;
-"TEMPORARY"
-ӱ:ӱ <=> _ ;
+!"TEMPORARY"
+!а:а <=> _ ;
+!"TEMPORARY"
+!е:е <=> _ ;
+!"TEMPORARY"
+!ы:ы <=> _ ;
+!"TEMPORARY"
+!у:у <=> _ ;
+!"TEMPORARY"
+!о:о <=> _ ;
+!"TEMPORARY"
+!и:и <=> _ ;
+!"TEMPORARY"
+!і:і <=> _ ;
+!"TEMPORARY"
+!ӧ:ӧ <=> _ ;
+!"TEMPORARY"
+!ӱ:ӱ <=> _ ;
