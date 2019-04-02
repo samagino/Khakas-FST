@@ -3,7 +3,7 @@ Alphabet
   А Б В Г Ғ Д Е Ё Ж З И Й І К Л М Н Ң О Ӧ П Р С Т У Ӱ Ф Х Ц Ч Ӌ Ш Щ Ъ Ы Ь Э Ю Я  	
   а б в г ғ д е ё ж з и й і к л м н ң о ӧ п р с т у ӱ ф х ц ч ӌ ш щ ъ ы ь э ю я 
   %{а%}:а %{а%}:е
-  %{ы%}:і %{ы%}:ы %{ы%}:0
+  %{ы%}:і %{ы%}:ы %{ы%}:0 %{ы%}:а %{ы%}:е
   а:а
   е:е
   ы:ы ы:а
@@ -40,7 +40,7 @@ UnvoicedCns = к п с т ф х ч ш щ ;
 Nasals = м н ң ;
 BCns = б л р ё н м ;
 GCns = г ғ ң ;
-ArchiCns = %{л%} %{з%} %{с%} %{т%} %{д%} %{н%} %{х%} ;
+ArchiCns = %{л%} %{з%} %{с%} %{т%} %{д%} %{н%} %{х%} %{d%};
 
 Vowels = а е ё и і о ӧ у ӱ ы ;
 FrontVowels = е и і ӧ ӱ ;
@@ -99,9 +99,15 @@ Rules
         except
             Vowels: %>: _ ;
             %{px3%}: %>: %{т%}: _ %{acc%}: ;
+            _ %>: %{х%}:0 :а ;
+            _ %>: %{х%}:0 :е ;
+
 
 "{ы} -> 0 when following vowels"
 %{ы%}:0 <=> Vowels: %>: _ ;
+        except
+            _ %>: %{х%}:0 :а ;
+            _ %>: %{х%}:0 :е ;
 
 "Assimilation, Vowel Harmony {х} -> г/ғ after most voiced consonants"
 %{х%}:Cx <=> [б | л | р | й | н | м] %>: _ :Vx ;
@@ -124,6 +130,12 @@ Vx:Vy <=> _ %>: %{х%}:0 :Vy ;
           where Vx in (ы у о и і ӧ ӱ)
                 Vy in (а а а е е е е)
           matched ;
+
+"Stem {ы} assimilation with null {x}"
+%{ы%}:а <=> _ %>: %{х%}:0 :а ;
+
+"Stem {ы} assimilation with null {x}"
+%{ы%}:е <=> _ %>: %{х%}:0 :е ;
 
 "Assimilation, Vowel Harmony {х} -> х/к after unvoiced consonants"
 %{х%}:Cx <=> [Cns - [б | л | р | й | н | м | г | ң | ғ] ] %>: _ :Vx ;
@@ -169,22 +181,3 @@ Vx:Vy <=> _ %>: %{х%}:0 :Vy ;
 
 "remove dative marker"
 %{dat%}:0 <=> _ ;
-
-!"TEMPORARY"
-!а:а <=> _ ;
-!"TEMPORARY"
-!е:е <=> _ ;
-!"TEMPORARY"
-!ы:ы <=> _ ;
-!"TEMPORARY"
-!у:у <=> _ ;
-!"TEMPORARY"
-!о:о <=> _ ;
-!"TEMPORARY"
-!и:и <=> _ ;
-!"TEMPORARY"
-!і:і <=> _ ;
-!"TEMPORARY"
-!ӧ:ӧ <=> _ ;
-!"TEMPORARY"
-!ӱ:ӱ <=> _ ;

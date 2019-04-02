@@ -3,10 +3,12 @@ Multichar_Symbols
 %>              ! morpheme boundary
 
 %<n%>           ! Имя Существительное | Noun
-%<num%>         ! Имя Числительное    | Numeral
 %<adj%>         ! Имя Приоагательное  | Adjective
 %<adv%>         ! Наречие             | Adverb
 %<prn%>         ! Местоимение         | Pronoun
+
+%<num%>         ! Имя Числительное    | Numeral
+%<ord%>         ! Порядковые          | Ordinal
 
 %<sg%>          ! единственного число  | Singular
 %<pl%>          ! множественного число | Plural
@@ -114,35 +116,53 @@ LEXICON Nouns
 киме:киме       N;          ! лодка    | boat
 мии:мии         N;          ! мозг     | brain
 хуу:хуу         N;          ! лебедь   | swan
+чазы:чазы       N;          ! поле     | field
+кізі:кізі       N;          ! человек  | man/person
+
+LEXICON NUM
+
+CASE    ; ! ¬ ordinal
+ORDINAL ; ! ordinal
+
+!LEXICON TENS
+
+!LEXICON HUNDREDS
+
+!LEXICON THOUSANDS
 
 LEXICON Numerals
 ! this is unfinished
 ! need ordinal numbers, production of big numbers
 
-пір%<num%>:пір          #;        ! один        | one
-ікі%<num%>:ікі          #;        ! два         | two
-ӱс%<num%>:ӱс            #;        ! три         | three
-тӧрт%<num%>:тӧрт        #;        ! четыре      | four
-пис%<num%>:пис          #;        ! пять        | five
-алты%<num%>:алты        #;        ! шесть       | six
-читі%<num%>:читі        #;        ! семь        | seven
-сигіс%<num%>:сигіс      #;        ! восемь      | eight
-тоғыс%<num%>:тоғыс      #;        ! девять      | nine
 
-он%<num%>:он            #;        ! десять      | ten
-чибіргі%<num%>:чибіргі  #;        ! двадцать    | twenty
-отыс%<num%>:отыс        #;        ! тридцать    | thirty
-хырых%<num%>:хырых      #;        ! сорок       | forty
-иліг%<num%>:иліг        #;        ! пятьдесят   | fifty
-алтон%<num%>:алтон      #;        ! шестьдесят  | sixty
-читон%<num%>:читон      #;        ! семьдесят   | seventy
-сигізон%<num%>:сигізон  #;        ! восемьдесят | eighty
-тоғызон%<num%>:тоғызон  #;        ! девяносто   | ninety
+пір%<num%>:пір          NUM;        ! один        | one
+ікі%<num%>:ікі          NUM;        ! два         | two
+ӱс%<num%>:ӱс            NUM;        ! три         | three
+тӧрт%<num%>:тӧрт        NUM;        ! четыре      | four
+пис%<num%>:пис          NUM;        ! пять        | five
+алты%<num%>:алты        NUM;        ! шесть       | six
+читі%<num%>:читі        NUM;        ! семь        | seven
+сигіс%<num%>:сигіс      NUM;        ! восемь      | eight
+тоғыс%<num%>:тоғыс      NUM;        ! девять      | nine
 
-чӱс%<num%>:чӱс          #;        ! сто         | (one)hundred
+он%<num%>:он            NUM;        ! десять      | ten
+чибіргі%<num%>:чибіргі  NUM;        ! двадцать    | twenty
+отыс%<num%>:отыс        NUM;        ! тридцать    | thirty
+хырых%<num%>:хырых      NUM;        ! сорок       | forty
+иліг%<num%>:иліг        NUM;        ! пятьдесят   | fifty
+алтон%<num%>:алтон      NUM;        ! шестьдесят  | sixty
+читон%<num%>:читон      NUM;        ! семьдесят   | seventy
+сигізон%<num%>:сигізон  NUM;        ! восемьдесят | eighty
+тоғызон%<num%>:тоғызон  NUM;        ! девяносто   | ninety
+
+чӱс%<num%>:чӱс          NUM;        ! сто         | (one)hundred
+муң%<num%>:муң          NUM;        ! тысячя      | (one)thousand
+
+LEXICON ORDINAL
+
+%<ord%>:%>%{ы%}нӌ%{ы%}    CASE;        ! ordinal numbers
 
 !LEXICON Adjectives
-
 
 !LEXICON Adverbs
 
