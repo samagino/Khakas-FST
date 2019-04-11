@@ -7,6 +7,9 @@ Multichar_Symbols
 %<adv%>         ! Наречие             | Adverb
 %<prn%>         ! Местоимение         | Pronoun
 
+%<temp%>        ! temporary, for words I don't know how to tag
+%<rfl%>         ! reflexive
+
 %<num%>         ! Имя Числительное    | Numeral
 %<ord%>         ! Порядковые          | Ordinal
 
@@ -65,20 +68,36 @@ LEXICON Root
 
 Nouns      ;
 Numerals   ;
-!Adjectives ;
+Adjectives ;
 !Adverbs   ;
 Pronouns   ;
 
 LEXICON CASE
 
+!! NOTE: grammars collide when discussing dative case inflection
+!!       here I follow the print grammar
+
 %<nom%>:                          # ; ! nominative
-%<acc%>:%>%{т%}%{ы%}%{acc%}       # ; ! accusitive
 %<gen%>:%>%{т%}%{ы%}ң             # ; ! genetive
-%<loc%>:%>%{н%}%{д%}%{а%}%{loc%}  # ; ! locative
-%<all%>:%>%{н%}%{с%}%{а%}р%{all%} # ; ! allative
-%<abl%>:%>%{d%}%{а%}ң%{abl%}      # ; ! ablative
-%<ins%>:%>н%{а%}ң                 # ; ! instrumental
 %<dat%>:%>%{х%}%{а%}%{dat%}       # ; ! dative
+%<acc%>:%>%{т%}%{ы%}%{acc%}       # ; ! accusitive
+%<loc%>:%>%{н%}%{д%}%{а%}%{loc%}  # ; ! locative
+%<abl%>:%>%{d%}%{а%}ң%{abl%}      # ; ! ablative
+%<all%>:%>%{н%}%{с%}%{а%}р%{all%} # ; ! allative
+%<ins%>:%>н%{а%}ң                 # ; ! instrumental
+
+LEXICON CASE-WITHOUT-DAT
+
+!! NOTE: grammars collide when discussing dative case inflection
+!!       here I follow the print grammar
+
+%<nom%>:                          # ; ! nominative
+%<gen%>:%>%{т%}%{ы%}ң             # ; ! genetive
+%<acc%>:%>%{т%}%{ы%}%{acc%}       # ; ! accusitive
+%<loc%>:%>%{н%}%{д%}%{а%}%{loc%}  # ; ! locative
+%<abl%>:%>%{d%}%{а%}ң%{abl%}      # ; ! ablative
+%<all%>:%>%{н%}%{с%}%{а%}р%{all%} # ; ! allative
+%<ins%>:%>н%{а%}ң                 # ; ! instrumental
 
 LEXICON POSSESSIVE
 
@@ -95,14 +114,24 @@ LEXICON POSSESSIVE
 %<px2pl%>:%>%{ы%}ң%{а%}р      CASE ; ! 2nd person plural possessive
 %<px3pl%>:%>%{з%}%{ы%}%{px3%} CASE ; ! 3rd person plural possessive
 
-LEXICON PLURAL
+LEXICON PLURAL-POSSESSIVE
 
 %<sg%>:               POSSESSIVE ; ! ¬ plural
 %<pl%>:%>%{л%}%{а%}р  POSSESSIVE ; ! plural
 
+LEXICON PLURAL-CASE
+
+%<sg%>:               CASE ; ! ¬ plural
+%<pl%>:%>%{л%}%{а%}р  CASE ; ! plural
+
+LEXICON PLURAL-CASE-WITHOUT-DAT
+
+%<sg%>:               CASE-WITHOUT-DAT ; ! ¬ plural
+%<pl%>:%>%{л%}%{а%}р  CASE-WITHOUT-DAT ; ! plural
+
 LEXICON N
 
-%<n%>: PLURAL ;
+%<n%>: PLURAL-POSSESSIVE ;
 
 LEXICON Nouns
 
@@ -121,8 +150,8 @@ LEXICON Nouns
 
 LEXICON NUM
 
-CASE    ; ! ¬ ordinal
-ORDINAL ; ! ordinal
+%<num%>: CASE    ; ! ¬ ordinal
+%<num%>: ORDINAL ; ! ordinal
 
 !LEXICON TENS
 
@@ -132,37 +161,46 @@ ORDINAL ; ! ordinal
 
 LEXICON Numerals
 ! this is unfinished
-! need ordinal numbers, production of big numbers
+! need production of big numbers
 
 
-пір%<num%>:пір          NUM;        ! один        | one
-ікі%<num%>:ікі          NUM;        ! два         | two
-ӱс%<num%>:ӱс            NUM;        ! три         | three
-тӧрт%<num%>:тӧрт        NUM;        ! четыре      | four
-пис%<num%>:пис          NUM;        ! пять        | five
-алты%<num%>:алты        NUM;        ! шесть       | six
-читі%<num%>:читі        NUM;        ! семь        | seven
-сигіс%<num%>:сигіс      NUM;        ! восемь      | eight
-тоғыс%<num%>:тоғыс      NUM;        ! девять      | nine
+пір:пір          NUM;        ! один        | one
+ікі:ікі          NUM;        ! два         | two
+ӱс:ӱс            NUM;        ! три         | three
+тӧрт:тӧрт        NUM;        ! четыре      | four
+пис:пис          NUM;        ! пять        | five
+алты:алты        NUM;        ! шесть       | six
+читі:читі        NUM;        ! семь        | seven
+сигіс:сигіс      NUM;        ! восемь      | eight
+тоғыс:тоғыс      NUM;        ! девять      | nine
 
-он%<num%>:он            NUM;        ! десять      | ten
-чибіргі%<num%>:чибіргі  NUM;        ! двадцать    | twenty
-отыс%<num%>:отыс        NUM;        ! тридцать    | thirty
-хырых%<num%>:хырых      NUM;        ! сорок       | forty
-иліг%<num%>:иліг        NUM;        ! пятьдесят   | fifty
-алтон%<num%>:алтон      NUM;        ! шестьдесят  | sixty
-читон%<num%>:читон      NUM;        ! семьдесят   | seventy
-сигізон%<num%>:сигізон  NUM;        ! восемьдесят | eighty
-тоғызон%<num%>:тоғызон  NUM;        ! девяносто   | ninety
+он:он            NUM;        ! десять      | ten
+чибіргі:чибіргі  NUM;        ! двадцать    | twenty
+отыс:отыс        NUM;        ! тридцать    | thirty
+хырых:хырых      NUM;        ! сорок       | forty
+иліг:иліг        NUM;        ! пятьдесят   | fifty
+алтон:алтон      NUM;        ! шестьдесят  | sixty
+читон:читон      NUM;        ! семьдесят   | seventy
+сигізон:сигізон  NUM;        ! восемьдесят | eighty
+тоғызон:тоғызон  NUM;        ! девяносто   | ninety
 
-чӱс%<num%>:чӱс          NUM;        ! сто         | (one)hundred
-муң%<num%>:муң          NUM;        ! тысячя      | (one)thousand
+чӱс:чӱс          NUM;        ! сто         | (one)hundred
+муң:муң          NUM;        ! тысячя      | (one)thousand
 
 LEXICON ORDINAL
 
 %<ord%>:%>%{ы%}нӌ%{ы%}    CASE;        ! ordinal numbers
 
-!LEXICON Adjectives
+LEXICON ADJ
+
+%<adj%>: # ;
+
+LEXICON Adjectives
+
+хара:хара       ADJ ;   ! черный  | black
+кӧк:кӧк         ADJ ;   ! голубой | blue
+хызыл:хызыл     ADJ ;   ! красный | red
+ах:ах           ADJ ;   ! белый   | white
 
 !LEXICON Adverbs
 
@@ -221,3 +259,148 @@ LEXICON Pronouns
 олардаң%<prn%>%<sg%>%<p3%>%<abl%>:олардаң #;
 оларзар%<prn%>%<sg%>%<p3%>%<all%>:оларзар #;
 оларнаң%<prn%>%<sg%>%<p3%>%<ins%>:оларнаң #;
+
+!! reflexive pronouns
+
+позым%<prn%>%<sg%>%<p1%>%<rfl%>%<nom%>:позым     #;            ! я сам | myself
+позымның%<prn%>%<sg%>%<p1%>%<rfl%>%<gen%>:позымның     #;
+позыма%<prn%>%<sg%>%<p1%>%<rfl%>%<dat%>:позыма     #;
+позымны%<prn%>%<sg%>%<p1%>%<rfl%>%<acc%>:позымны     #;
+позымда%<prn%>%<sg%>%<p1%>%<rfl%>%<loc%>:позымда     #;
+позымнаң%<prn%>%<sg%>%<p1%>%<rfl%>%<abl%>:позымнаң     #;
+позымзар%<prn%>%<sg%>%<p1%>%<rfl%>%<all%>:позымзар     #;
+позымнаң%<prn%>%<sg%>%<p1%>%<rfl%>%<ins%>:позымнаң     #;
+
+позың%<prn%>%<sg%>%<p2%>%<rfl%>%<nom%>:позың     #;            ! ты сам | yourself
+позыңның%<prn%>%<sg%>%<p2%>%<rfl%>%<gen%>:позыңның     #;
+позыңа%<prn%>%<sg%>%<p2%>%<rfl%>%<dat%>:позыңа     #;
+позыңны%<prn%>%<sg%>%<p2%>%<rfl%>%<acc%>:позыңны     #;
+позыңда%<prn%>%<sg%>%<p2%>%<rfl%>%<loc%>:позыңда     #;
+позыңнаң%<prn%>%<sg%>%<p2%>%<rfl%>%<abl%>:позыңнаң     #;
+позыңзар%<prn%>%<sg%>%<p2%>%<rfl%>%<all%>:позыңзар     #;
+позыңнаң%<prn%>%<sg%>%<p2%>%<rfl%>%<ins%>:позыңнаң     #;
+
+позы%<prn%>%<sg%>%<p3%>%<rfl%>%<nom%>:позы       #;           ! он сам | his/her/itself
+позының%<prn%>%<sg%>%<p3%>%<rfl%>%<gen%>:позының       #;
+позына%<prn%>%<sg%>%<p3%>%<rfl%>%<dat%>:позына       #;
+позын%<prn%>%<sg%>%<p3%>%<rfl%>%<acc%>:позын       #;
+позыда%<prn%>%<sg%>%<p3%>%<rfl%>%<loc%>:позыда       #;
+позынаң%<prn%>%<sg%>%<p3%>%<rfl%>%<abl%>:позынаң       #;
+позызар%<prn%>%<sg%>%<p3%>%<rfl%>%<all%>:позызар       #;
+позынаң%<prn%>%<sg%>%<p3%>%<rfl%>%<ins%>:позынаң       #;
+
+позыбыс%<prn%>%<pl%>%<p1%>%<rfl%>%<nom%>:позыбыс #;           ! мы сами | ourselves
+позыбыстың%<prn%>%<pl%>%<p1%>%<rfl%>%<gen%>:позыбыстың #;
+позыбысха%<prn%>%<pl%>%<p1%>%<rfl%>%<dat%>:позыбысха #;
+позыбытны%<prn%>%<pl%>%<p1%>%<rfl%>%<acc%>:позыбытны #;
+позыбыста%<prn%>%<pl%>%<p1%>%<rfl%>%<loc%>:позыбыста #;
+позыбыстаң%<prn%>%<pl%>%<p1%>%<rfl%>%<abl%>:позыбыстаң #;
+позыбыссар%<prn%>%<pl%>%<p1%>%<rfl%>%<all%>:позыбыссар #;
+позыбыснаң%<prn%>%<pl%>%<p1%>%<rfl%>%<ins%>:позыбыснаң #;
+
+позыңар%<prn%>%<pl%>%<p2%>%<rfl%>%<nom%>:позыңар #;           ! вы сами | yourselves
+позыңарның%<prn%>%<pl%>%<p2%>%<rfl%>%<gen%>:позыңарның #;
+позыңарға%<prn%>%<pl%>%<p2%>%<rfl%>%<dat%>:позыңарға #;
+позыңарны%<prn%>%<pl%>%<p2%>%<rfl%>%<acc%>:позыңарны #;
+позыңарда%<prn%>%<pl%>%<p2%>%<rfl%>%<loc%>:позыңарда #;
+позыңардаң%<prn%>%<pl%>%<p2%>%<rfl%>%<abl%>:позыңардаң #;
+позыңарзар%<prn%>%<pl%>%<p2%>%<rfl%>%<all%>:позыңарзар #;
+позыңарнаң%<prn%>%<pl%>%<p2%>%<rfl%>%<ins%>:позыңарнаң #;
+
+постары%<prn%>%<pl%>%<p3%>%<rfl%>%<nom%>:постары #;           ! они сами | themselves
+постарының%<prn%>%<pl%>%<p3%>%<rfl%>%<gen%>:постарының #;
+постарына%<prn%>%<pl%>%<p3%>%<rfl%>%<dat%>:постарына #;
+постарын%<prn%>%<pl%>%<p3%>%<rfl%>%<acc%>:постарын #;
+постарыда%<prn%>%<pl%>%<p3%>%<rfl%>%<loc%>:постарыда #;
+постарынаң%<prn%>%<pl%>%<p3%>%<rfl%>%<abl%>:постарынаң #;
+постарызар%<prn%>%<pl%>%<p3%>%<rfl%>%<all%>:постарызар #;
+постарынаң%<prn%>%<pl%>%<p3%>%<rfl%>%<ins%>:постарынаң #;
+
+!! possessive pronouns
+
+!! determinate
+!! TODO: something with tags
+минің%<prn%>%<px1sg%>:минің       #; ! мой  | my
+синің%<prn%>%<px2sg%>:синің       #; ! твой | your (sg)
+аның%<prn%>%<px3sg%>:аның         #; ! его  | his
+пістің%<prn%>%<px1pl%>:пістің     #; ! наш  | our
+сірернің%<prn%>%<px2pl%>:сірернің #; ! ваш  | your (pl)
+оларнің%<prn%>%<px3pl%>:оларнің   #; ! их   | their
+
+!! indeterminate (?) (предикативные)
+!! TODO: something with tags
+мини%<prn%>%<px1sg%>%<nom%>:мини         #;  ! мой  | my
+мининің%<prn%>%<px1sg%>%<gen%>:мининің   #;
+минине%<prn%>%<px1sg%>%<dat%>:минине     #;
+минин%<prn%>%<px1sg%>%<acc%>:минин       #;
+миниде%<prn%>%<px1sg%>%<loc%>:миниде     #;
+мининең%<prn%>%<px1sg%>%<abl%>:мининең   #;
+мининзер%<prn%>%<px1sg%>%<all%>:мининзер #;
+мининең%<prn%>%<px1sg%>%<ins%>:мининең   #;
+
+сини%<prn%>%<px2sg%>%<nom%>:сини         #; ! твой | your (sg)
+сининің%<prn%>%<px2sg%>%<gen%>:сининің   #;
+синине%<prn%>%<px2sg%>%<dat%>:синине     #;
+синин%<prn%>%<px2sg%>%<acc%>:синин       #;
+синиде%<prn%>%<px2sg%>%<loc%>:синиде     #;
+сининең%<prn%>%<px2sg%>%<abl%>:сининең   #;
+сининзер%<prn%>%<px2sg%>%<all%>:сининзер #;
+сининең%<prn%>%<px2sg%>%<ins%>:сининең   #;
+
+ани%<prn%>%<px3sg%>%<nom%>:ани         #; ! его  | his
+анинің%<prn%>%<px3sg%>%<gen%>:анинің   #;
+анина%<prn%>%<px3sg%>%<dat%>:анина     #;
+анин%<prn%>%<px3sg%>%<acc%>:анин       #;
+анида%<prn%>%<px3sg%>%<loc%>:анида     #;
+анинаң%<prn%>%<px3sg%>%<abl%>:анинаң   #;
+анинзар%<prn%>%<px3sg%>%<all%>:анинзар #;
+анинаң%<prn%>%<px3sg%>%<ins%>:анинаң   #;
+
+пісти%<prn%>%<px1pl%>%<nom%>:пісти         #; ! наш  | our
+пістинің%<prn%>%<px1pl%>%<gen%>:пістинің   #;
+пістине%<prn%>%<px1pl%>%<dat%>:пістине     #;
+пістин%<prn%>%<px1pl%>%<acc%>:пістин       #;
+пістиде%<prn%>%<px1pl%>%<loc%>:пістиде     #;
+пістинең%<prn%>%<px1pl%>%<abl%>:пістинең   #;
+пістинзер%<prn%>%<px1pl%>%<all%>:пістинзер #;
+пістинең%<prn%>%<px1pl%>%<ins%>:пістинең   #;
+
+сірерни%<prn%>%<px2pl%>%<nom%>:сірерни         #; ! ваш  | your (pl)
+сірернинің%<prn%>%<px2pl%>%<gen%>:сірернинің   #;
+сірернине%<prn%>%<px2pl%>%<dat%>:сірернине     #;
+сірернин%<prn%>%<px2pl%>%<acc%>:сірернин       #;
+сірерниде%<prn%>%<px2pl%>%<loc%>:сірерниде     #;
+сірернинең%<prn%>%<px2pl%>%<abl%>:сірернинең   #;
+сірернинзер%<prn%>%<px2pl%>%<all%>:сірернинзер #;
+сірернинең%<prn%>%<px2pl%>%<ins%>:сірернинең   #;
+
+оларни%<prn%>%<px3pl%>%<nom%>:оларни         #; ! их   | their
+оларнинің%<prn%>%<px3pl%>%<gen%>:оларнинің   #;
+оларнина%<prn%>%<px3pl%>%<dat%>:оларнина     #;
+оларнин%<prn%>%<px3pl%>%<acc%>:оларнин       #;
+оларнида%<prn%>%<px3pl%>%<loc%>:оларнида     #;
+оларнинаң%<prn%>%<px3pl%>%<abl%>:оларнинаң   #;
+оларнинзар%<prn%>%<px3pl%>%<all%>:оларнинзар #;
+оларнинаң%<prn%>%<px3pl%>%<ins%>:оларнинаң   #;
+
+!! question words (who, what)
+!! TODO: something with tags
+кем%<prn%>%<temp%>:кем   PLURAL-CASE ; ! кто | who
+ниме%<prn%>%<temp%>:ниме PLURAL-CASE ; ! что | what
+
+!хайзы%<prn%>%<temp%>%<sg%>:хайзы # ;
+!хайзына%<prn%>%<temp%>%<sg%>%<dat%>:хайзына # ;
+!хайзына%<prn%>%<temp%>%<pl%>%<dat%>:хайзына # ;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Stuff in the Pronoun Section That I'm Not Sure Are Pronouns !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! could be quantifiers?
+полған%<temp%>:полған # ; ! каждый    | each
+прай%<temp%>:прай     # ; ! все, весь | all
+
+
+
+!!
+!LEXICON POS_PRN
