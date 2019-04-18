@@ -1,3 +1,7 @@
+!! NOTE: some words contain ь or ъ, probably loan words or something, I assume
+!!       these characters should be skipped when checking for vowel harmony and
+!!       assimilation, but I may be wrong
+
 Alphabet
   ! Cyrillic Alphabet
   А Б В Г Ғ Д Е Ё Ж З И Й І К Л М Н Ң О Ӧ П Р С Т У Ӱ Ф Х Ц Ч Ӌ Ш Щ Ъ Ы Ь Э Ю Я  	
@@ -33,18 +37,19 @@ Alphabet
 !==================
 Sets
 !==================
+! not sure where ь and ъ should go
 
-Cns = б в г ғ д ж з й к л м н ң п р с т ф х ц ч ӌ ш щ ъ ь ;
+Cns = б в г ғ д ж з й к л м н ң п р с т ф х ц ч ӌ ш щ ъ ь;
 VoicedCns = б в г ғ д ж з й л м н ң р ӌ ;
-UnvoicedCns = к п с т ф х ч ш щ ;
+UnvoicedCns = к п с т ф х ч ш щ ц ъ ь ;
 Nasals = м н ң ;
 BCns = б л р ё н м ;
 GCns = г ғ ң ;
 ArchiCns = %{л%} %{з%} %{с%} %{т%} %{д%} %{н%} %{х%} %{d%};
 
-Vowels = а е ё и і о ӧ у ӱ ы ;
+Vowels = а е ё и і о ӧ у ӱ ы ю я ;
 FrontVowels = е и і ӧ ӱ ;
-BackVowels = а ы у о ;
+BackVowels = а ы у о ё ю я ;
 ArchiVowls = %{а%} %{ы%} ;
 
 Markers = %{px3%} %{acc%} %{loc%} %{all%} %{dat%} ;
@@ -60,21 +65,21 @@ Rules
 !==================
 
 "Assimilation {л} -> л when following a vowel or a voiced consonant, except nasals"
-%{л%}:л <=> [ Vowels: | VoicedCns: ] %>: _ ;
+%{л%}:л <=> [ Vowels: | VoicedCns: ] [ь:]* %>: _ ;
         except
-            Nasals: %>: _ ;
+            Nasals: [ь:]* %>: _ ;
 
 "Assimilation {л} -> н when following nasals"
-%{л%}:н <=> Nasals: %>: _ ;
+%{л%}:н <=> Nasals: [ь:]* %>: _ ;
 
 "Assimilation {d} -> д when following a vowel or a voiced consonant, except nasals"
-%{d%}:д <=> [ Vowels: | VoicedCns: ] %>: _ ;
+%{d%}:д <=> [ Vowels: | VoicedCns: ] [ь:]* %>: _ ;
         except
-            Nasals: %>: _ ;
+            Nasals: [ь:]* %>: _ ;
             %{px3%}: %>: _ %{а%}: ң %{abl%}: ;
 
 "Assimilation {d} -> н when following nasals"
-%{d%}:н <=> Nasals: %>: _ ;
+%{d%}:н <=> Nasals: [ь:]* %>: _ ;
 
 "{d} -> н when in ablative and following 3rd person possessive"
 %{d%}:н <=> %{px3%}: %>: _ %{а%}: ң %{abl%}: ;
@@ -83,13 +88,13 @@ Rules
 %{з%}:0 <=> Cns: %>: _ ;
 
 "Assimilation {т} -> т when following an unvoiced consonant"
-%{т%}:т <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+%{т%}:т <=> UnvoicedCns: [ ь: | ArchiCns: | %>: ]+ _ ;
 
 "Assimilation {д} -> т when following an unvoiced consonant"
-%{д%}:т <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+%{д%}:т <=> UnvoicedCns: [ ь: | ArchiCns: | %>: ]+ _ ;
 
 "Assimilation {с} -> с when following an unvoiced consonant"
-%{с%}:с <=> UnvoicedCns: [ ArchiCns: | %>: ]+ _ ;
+%{с%}:с <=> UnvoicedCns: [ ь: | ArchiCns: | %>: ]+ _ ;
 
 "Vowel harmony for archiphoneme {а}"
 %{а%}:а <=> StemBackVowel _ ;
