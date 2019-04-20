@@ -6,6 +6,7 @@ Multichar_Symbols
 %<adj%>         ! Имя Приоагательное  | Adjective
 %<adv%>         ! Наречие             | Adverb
 %<prn%>         ! Местоимение         | Pronoun
+%<conj%>        !                     | Conjunction
 
 %<temp%>        ! temporary, for words I don't know how to tag
 %<rfl%>         ! reflexive
@@ -68,9 +69,10 @@ LEXICON Root
 
 Nouns      ;
 Numerals   ;
-Adjectives ;
+!Adjectives ;
 !Adverbs   ;
 Pronouns   ;
+Conjunctions ;
 
 LEXICON CASE
 
@@ -435,13 +437,17 @@ LEXICON Pronouns
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !! could be quantifiers?
-полған%<temp%>:полған # ; ! каждый    | each
-прай%<temp%>:прай     # ; ! все, весь | all
+полған%<prn%>%<temp%>:полған # ; ! каждый    | each
+прай%<prn%>%<temp%>:прай     # ; ! все, весь | all
 
 
 
 !!
 !LEXICON POS_PRN
+
+LEXICON Conjunctions
+
+паза%<conj%>:паза # ; ! и | and
 
 LEXICON Nouns
 
